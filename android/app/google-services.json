@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "958528536944",
+    "project_id": "uniapp-b930d",
+    "storage_bucket": "uniapp-b930d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958528536944:android:a81e0716196bb5aee7cfb5",
+        "android_client_info": {
+          "package_name": "com.trackapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "958528536944-30i7squ9od0am2nj047p8ab4li1iengh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsLodCLfjdRAF34VBtyNEA9E3aJWuBOuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "958528536944-30i7squ9od0am2nj047p8ab4li1iengh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
