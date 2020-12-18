@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Permission} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -15,8 +15,8 @@ export class Maps extends Component {
     },
     pointCoords: [],
   };
-  componentDidMount() {
-    Geolocation.getCurrentPosition(
+  componentDidMount = async () => {
+    this.watchid = Geolocation.watchPosition(
       (position) => {
         this.setState({
           location: {
@@ -24,23 +24,26 @@ export class Maps extends Component {
             longitude: position.coords.longitude,
           },
         });
-        this.getRouteDirections();
         // console.warn(this.state.location);
+        this.getRouteDirections();
       },
       (error) => {
-        this.setState({error: error.message});
-        // console.warn(error);s
+        // console.warn(error);
       },
       {enableHighAccuracy: true},
     );
+  };
+
+  componentWillUnmount() {
+    Geolocation.clearWatch(this.watchid);
   }
-  async getRouteDirections(destinationPlaceId, destinationName) {
+
+  async getRouteDirections() {
     try {
       const startloc = '44.858,-0.5326';
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${this.state.location.latitude}, ${this.state.location.longitude}&destination=${startloc}&key=AIzaSyD20OffxJ-p1xgD_aVZbHfjwjri3GJJxew`,
       );
-
       const json = await response.json();
 
       const points = PolyLine.decode(json.routes[0].overview_polyline.points);
@@ -50,6 +53,7 @@ export class Maps extends Component {
       this.setState({
         pointCoords: Coords,
       });
+      this.map.fitToCoordinates(this.state.pointCoords);
     } catch (error) {
       console.error(error);
     }
@@ -57,7 +61,13 @@ export class Maps extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.Box}>
+          <Text>H</Text>
+        </View>
         <MapView
+          ref={(map) => {
+            this.map = map;
+          }}
           showsUserLocation={true}
           style={styles.map}
           region={{
@@ -71,6 +81,7 @@ export class Maps extends Component {
             strokeWidth={4}
             strokeColor="red"
           />
+
           <Marker
             coordinate={{latitude: 44.858, longitude: -0.5326}}
             image={require('../assets/gg.png')}
@@ -87,10 +98,24 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    zIndex: -1,
+    position: 'absolute',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    flex: 1,
+  },
+  Box: {
+    backgroundColor: '#fff',
+    width: '10%',
+    height: '6%',
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    marginTop: h('2%'),
+    marginLeft: h('4%'),
+    borderRadius: h('1%'),
+    elevation: h('5%'),
   },
 });
