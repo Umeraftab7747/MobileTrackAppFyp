@@ -4,6 +4,7 @@ import {w, h} from 'react-native-responsiveness';
 import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import PolyLine from '@mapbox/polyline';
+import {Icon} from 'react-native-elements';
 
 export class Maps extends Component {
   state = {
@@ -61,9 +62,14 @@ export class Maps extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.Box}>
-          <Text>H</Text>
+        <TouchableOpacity
+          style={styles.Box}
+          onPress={() => {
+            this.props.navigation.openDrawer();
+          }}>
+          <Icon name="menu-outline" type="ionicon" color="#000" />
         </TouchableOpacity>
+
         <MapView
           ref={(map) => {
             this.map = map;
