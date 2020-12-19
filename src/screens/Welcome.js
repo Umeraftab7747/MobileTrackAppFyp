@@ -27,6 +27,10 @@ export class Welcome extends Component {
             <Text style={styles.Forgotpass}>Forgot Password ?</Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity style={styles.LoginButton}>
+          <Text style={styles.logintext}>Login</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -50,6 +54,20 @@ const styles = StyleSheet.create({
   Forgotpass: {
     color: 'black',
     fontSize: h('2%'),
+    fontWeight: 'bold',
+  },
+  LoginButton: {
+    backgroundColor: 'black',
+    width: w('30%'),
+    height: h('6%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: h('1%'),
+    marginTop: h('6%'),
+  },
+  logintext: {
+    color: 'white',
+    fontSize: h('2.2%'),
     fontWeight: 'bold',
   },
 });
