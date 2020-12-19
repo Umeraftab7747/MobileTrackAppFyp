@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Permission} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -16,7 +16,7 @@ export class Maps extends Component {
     pointCoords: [],
   };
   componentDidMount = async () => {
-    this.watchid = Geolocation.watchPosition(
+    this.watchid = Geolocation.getCurrentPosition(
       (position) => {
         this.setState({
           location: {
@@ -61,9 +61,9 @@ export class Maps extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.Box}>
+        <TouchableOpacity style={styles.Box}>
           <Text>H</Text>
-        </View>
+        </TouchableOpacity>
         <MapView
           ref={(map) => {
             this.map = map;
