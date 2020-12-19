@@ -31,6 +31,9 @@ export class Welcome extends Component {
         <TouchableOpacity style={styles.LoginButton}>
           <Text style={styles.logintext}>Login</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.SignupButton}>
+          <Text style={styles.Forgotpass}>Dont Have Account SIGNUP !</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -69,5 +72,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: h('2.2%'),
     fontWeight: 'bold',
+  },
+  SignupButton: {
+    marginTop: h('4%'),
   },
 });
