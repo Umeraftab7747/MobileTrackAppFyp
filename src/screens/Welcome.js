@@ -2,8 +2,49 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import {AppText} from '../components';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 export class Welcome extends Component {
+  state = {
+    Email: '',
+    Password: '',
+    modalVisible: false,
+    ForgotPass: '',
+  };
+
+  Login = async () => {
+    if (this.state.Email !== '') {
+      if (this.state.Password !== '') {
+        await auth()
+          .signInWithEmailAndPassword(this.state.Email, this.state.Password)
+          .then(async (response) => {
+            auth().onAuthStateChanged(async (user) => {
+              if (user.emailVerified) {
+                this.props.navigation.replace('DrawerNavigator');
+              } else {
+                alert('Email is not Verified');
+              }
+            });
+          })
+          .catch((error) => {
+            if (error.code === 'auth/wrong-password') {
+              alert('This password is Invalid');
+            }
+            if (error.code === 'auth/user-not-found') {
+              alert('This email address not found');
+            }
+            if (error.code === 'auth/invalid-email') {
+              alert('This email address is invalid!');
+            }
+          });
+      } else {
+        alert('Password field is empty');
+      }
+    } else {
+      alert('Email field is empty');
+    }
+  };
   render() {
     return (
       <View style={styles.Container}>
@@ -31,7 +72,11 @@ export class Welcome extends Component {
         <TouchableOpacity style={styles.LoginButton}>
           <Text style={styles.logintext}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.SignupButton}>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('Signup');
+          }}
+          style={styles.SignupButton}>
           <Text style={styles.Forgotpass}>Dont Have Account SIGNUP !</Text>
         </TouchableOpacity>
       </View>
