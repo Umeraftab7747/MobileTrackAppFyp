@@ -2,8 +2,54 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import {AppText} from '../components';
+import auth from '@react-native-firebase/auth';
 
 export class Signup extends Component {
+  state = {
+    SignupEmail: '',
+    SignupPassword: '',
+    SignupConfirmPassword: '',
+  };
+
+  UserSignUp = () => {
+    if (this.state.SignupEmail !== '') {
+      if (this.state.SignupPassword !== '') {
+        if (this.state.SignupPassword === this.state.SignupConfirmPassword) {
+          console.log(this.state.auth);
+          auth()
+            .createUserWithEmailAndPassword(
+              this.state.SignupEmail,
+              this.state.SignupPassword,
+            )
+            .then(() => {
+              auth().onAuthStateChanged(function (user) {
+                user.sendEmailVerification();
+                alert('Verify Email and Login');
+                this.props.navigation.navigate('Welcome');
+              });
+            })
+            .catch((error) => {
+              if (error.code === 'auth/email-already-in-use') {
+                alert('That email address is already in use!');
+              }
+              if (error.code === 'auth/weak-password') {
+                alert('PASSWORD MUST CONTAIN 8 character');
+              }
+              if (error.code === 'auth/invalid-email') {
+                alert('That email address is invalid!');
+              }
+            });
+        } else {
+          alert('Password and Confirm Password Dont match');
+        }
+      } else {
+        alert('Passowrd is Requried');
+      }
+    } else {
+      alert('Email is Required !');
+    }
+  };
+
   render() {
     return (
       <View style={styles.Container}>
@@ -11,26 +57,30 @@ export class Signup extends Component {
         <AppText
           name={'mail'}
           placeholder={'Email'}
-          onChangeText={(Email) => {
-            this.setState({Email});
+          onChangeText={(SignupEmail) => {
+            this.setState({SignupEmail});
           }}
         />
         <AppText
           name={'lock-closed-sharp'}
           placeholder={'Password'}
-          onChangeText={(Password) => {
-            this.setState({Password});
+          onChangeText={(SignupPassword) => {
+            this.setState({SignupPassword});
           }}
         />
         <AppText
           name={'lock-closed-sharp'}
           placeholder={'Confirm Passoword'}
-          onChangeText={(CPassword) => {
-            this.setState({CPassword});
+          onChangeText={(SignupConfirmPassword) => {
+            this.setState({SignupConfirmPassword});
           }}
         />
 
-        <TouchableOpacity style={styles.LoginButton}>
+        <TouchableOpacity
+          onPress={() => {
+            this.UserSignUp();
+          }}
+          style={styles.LoginButton}>
           <Text style={styles.logintext}>Sign up</Text>
         </TouchableOpacity>
         <TouchableOpacity

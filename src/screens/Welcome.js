@@ -69,7 +69,11 @@ export class Welcome extends Component {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.LoginButton}>
+        <TouchableOpacity
+          onPress={() => {
+            this.Login();
+          }}
+          style={styles.LoginButton}>
           <Text style={styles.logintext}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity

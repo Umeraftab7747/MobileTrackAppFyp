@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: '85%',
     height: h('7%'),
     paddingLeft: h('1.5%'),
-    color: '#fff',
+    color: '#000',
   },
   icon: {
     // backgroundColor: 'red',
