@@ -1,54 +1,87 @@
+/* eslint-disable react/self-closing-comp */
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Modal} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import {AppText} from '../components';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Welcome extends Component {
   state = {
     Email: '',
     Password: '',
-    modalVisible: false,
+    modalVisible: true,
     ForgotPass: '',
+    Name: '',
+  };
+
+  componentDidMount = () => {
+    AsyncStorage.getItem('userData', (error, data) => {
+      const userData = JSON.parse(data);
+      if (userData !== null) {
+        this.props.navigation.replace('DrawerNavigator');
+      } else {
+      }
+    });
   };
 
   Login = async () => {
-    if (this.state.Email !== '') {
-      if (this.state.Password !== '') {
-        await auth()
-          .signInWithEmailAndPassword(this.state.Email, this.state.Password)
-          .then(async (response) => {
-            auth().onAuthStateChanged(async (user) => {
-              if (user.emailVerified) {
-                this.props.navigation.replace('DrawerNavigator');
-              } else {
-                alert('Email is not Verified');
+    if (this.state.Name !== '') {
+      if (this.state.Email !== '') {
+        if (this.state.Password !== '') {
+          await auth()
+            .signInWithEmailAndPassword(this.state.Email, this.state.Password)
+            .then(async (response) => {
+              auth().onAuthStateChanged(async (user) => {
+                if (user.emailVerified) {
+                  const value = {
+                    Name: this.state.Name,
+                  };
+                  AsyncStorage.setItem(
+                    'userData',
+                    JSON.stringify(value),
+                    () => {
+                      this.props.navigation.replace('DrawerNavigator');
+                    },
+                  );
+                } else {
+                  alert('Email is not Verified');
+                }
+              });
+            })
+            .catch((error) => {
+              if (error.code === 'auth/wrong-password') {
+                alert('This password is Invalid');
+              }
+              if (error.code === 'auth/user-not-found') {
+                alert('This email address not found');
+              }
+              if (error.code === 'auth/invalid-email') {
+                alert('This email address is invalid!');
               }
             });
-          })
-          .catch((error) => {
-            if (error.code === 'auth/wrong-password') {
-              alert('This password is Invalid');
-            }
-            if (error.code === 'auth/user-not-found') {
-              alert('This email address not found');
-            }
-            if (error.code === 'auth/invalid-email') {
-              alert('This email address is invalid!');
-            }
-          });
+        } else {
+          alert('Password field is empty');
+        }
       } else {
-        alert('Password field is empty');
+        alert('Email field is empty');
       }
     } else {
-      alert('Email field is empty');
+      alert('Name field is empty');
     }
   };
   render() {
     return (
       <View style={styles.Container}>
         <Text style={styles.LoginText}>LOGIN</Text>
+        <AppText
+          name={'person-circle-outline'}
+          placeholder={'Your Name'}
+          onChangeText={(Name) => {
+            this.setState({Name});
+          }}
+        />
         <AppText
           name={'mail'}
           placeholder={'Email'}
@@ -83,6 +116,8 @@ export class Welcome extends Component {
           style={styles.SignupButton}>
           <Text style={styles.Forgotpass}>Dont Have Account SIGNUP !</Text>
         </TouchableOpacity>
+
+        {/* modal */}
       </View>
     );
   }
@@ -124,5 +159,11 @@ const styles = StyleSheet.create({
   },
   SignupButton: {
     marginTop: h('4%'),
+  },
+  ModalView: {
+    backgroundColor: 'white',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

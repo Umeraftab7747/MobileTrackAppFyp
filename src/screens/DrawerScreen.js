@@ -5,8 +5,32 @@ import {View, Text, SafeAreaView, StyleSheet, StatusBar} from 'react-native';
 import {w, h} from 'react-native-responsiveness';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Icon} from 'react-native-elements';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class DrawerScreen extends Component {
+  state = {
+    Name: '',
+  };
+
+  componentDidMount = () => {
+    AsyncStorage.getItem('userData', (error, data) => {
+      const userData = JSON.parse(data);
+      if (userData !== null) {
+        this.setState({
+          Name: userData.Name,
+        });
+      } else {
+        console.warn('No data found');
+      }
+    });
+  };
+
+  removeData = () => {
+    AsyncStorage.removeItem('userData', () => {
+      this.props.navigation.replace('Welcome');
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -14,13 +38,14 @@ export class DrawerScreen extends Component {
         <SafeAreaView />
         <View style={styles.name}>
           <View style={styles.leftr}>
-            <Text style={styles.ntxt}>Name: </Text>
-            <Text style={styles.dtxt}>UserID: </Text>
+            <Text style={styles.ntxt}>Name: {this.state.Name} </Text>
           </View>
         </View>
 
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => {
+            this.removeData();
+          }}
           style={[
             styles.ItemView,
             {
