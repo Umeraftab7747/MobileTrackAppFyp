@@ -92,6 +92,7 @@ export class Welcome extends Component {
         <AppText
           name={'lock-closed-sharp'}
           placeholder={'Password'}
+          password={true}
           onChangeText={(Password) => {
             this.setState({Password});
           }}

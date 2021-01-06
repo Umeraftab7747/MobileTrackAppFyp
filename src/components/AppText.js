@@ -21,6 +21,7 @@ export class AppText extends Component {
           placeholder={this.props.placeholder}
           placeholderTextColor={'#000'}
           keyboardType={this.props.keyboardType}
+          secureTextEntry={this.props.password}
         />
       </View>
     );

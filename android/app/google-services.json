@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "958528536944",
-    "project_id": "uniapp-b930d",
-    "storage_bucket": "uniapp-b930d.appspot.com"
+    "project_number": "156214243722",
+    "project_id": "react-native-project-298721",
+    "storage_bucket": "react-native-project-298721.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958528536944:android:a81e0716196bb5aee7cfb5",
+        "mobilesdk_app_id": "1:156214243722:android:7512d20d68ed061c199873",
         "android_client_info": {
           "package_name": "com.trackapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "958528536944-30i7squ9od0am2nj047p8ab4li1iengh.apps.googleusercontent.com",
+          "client_id": "156214243722-jrihohtu61h4ed4vsqq24me25n6bs4cg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBsLodCLfjdRAF34VBtyNEA9E3aJWuBOuo"
+          "current_key": "AIzaSyBh0cVaCjch7unJPlXdoaxG_4KXscbq6Pg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "958528536944-30i7squ9od0am2nj047p8ab4li1iengh.apps.googleusercontent.com",
+              "client_id": "156214243722-jrihohtu61h4ed4vsqq24me25n6bs4cg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

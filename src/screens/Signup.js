@@ -64,6 +64,7 @@ export class Signup extends Component {
         <AppText
           name={'lock-closed-sharp'}
           placeholder={'Password'}
+          password={true}
           onChangeText={(SignupPassword) => {
             this.setState({SignupPassword});
           }}
@@ -71,6 +72,7 @@ export class Signup extends Component {
         <AppText
           name={'lock-closed-sharp'}
           placeholder={'Confirm Passoword'}
+          password={true}
           onChangeText={(SignupConfirmPassword) => {
             this.setState({SignupConfirmPassword});
           }}
