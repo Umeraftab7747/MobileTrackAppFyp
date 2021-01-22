@@ -14,8 +14,8 @@ export class Guest extends Component {
       const value = {
         Name: this.state.Name,
       };
-      AsyncStorage.setItem('userData', JSON.stringify(value), () => {
-        this.props.navigation.replace('DrawerNavigator');
+      AsyncStorage.setItem('guest', JSON.stringify(value), () => {
+        this.props.navigation.replace('Dashboard');
       });
     } else {
       alert('Name field is empty');
