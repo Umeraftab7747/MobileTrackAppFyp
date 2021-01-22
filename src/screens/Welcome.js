@@ -118,6 +118,14 @@ export class Welcome extends Component {
           <Text style={styles.Forgotpass}>Dont Have Account SIGNUP !</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate('Guest');
+          }}
+          style={styles.SignupButton}>
+          <Text style={styles.Forgotpass}>Login as Guest !</Text>
+        </TouchableOpacity>
+
         {/* modal */}
       </View>
     );

@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import {Welcome} from '../screens';
 import {Signup} from '../screens';
+import {Guest} from '../screens';
 
 import {DrawerNavigator} from './DrawerNavigator';
 
@@ -20,6 +21,11 @@ export default class MainNavigation extends Component {
           <Stack.Screen
             name="Signup"
             component={Signup}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Guest"
+            component={Guest}
             options={{headerShown: false}}
           />
 
