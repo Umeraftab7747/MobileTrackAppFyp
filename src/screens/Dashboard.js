@@ -50,10 +50,18 @@ export class Dashboard extends Component {
 
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('Friends');
+              }}
+              style={styles.buttonContainer}>
               <Text>Mes amies</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('Invite');
+              }}
+              style={styles.buttonContainer}>
               <Text>Invitations</Text>
             </TouchableOpacity>
             <Text style={styles.description}>

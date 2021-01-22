@@ -6,6 +6,8 @@ import {Welcome} from '../screens';
 import {Signup} from '../screens';
 import {Guest} from '../screens';
 import {Dashboard} from '../screens';
+import {Friends} from '../screens';
+import {Invite} from '../screens';
 
 import {DrawerNavigator} from './DrawerNavigator';
 
@@ -38,6 +40,16 @@ export default class MainNavigation extends Component {
           <Stack.Screen
             name="DrawerNavigator"
             component={DrawerNavigator}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Friends"
+            component={Friends}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Invite"
+            component={Invite}
             options={{headerShown: false}}
           />
         </Stack.Navigator>
