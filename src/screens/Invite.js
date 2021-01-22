@@ -5,13 +5,25 @@ import {w, h} from 'react-native-responsiveness';
 export class Invite extends Component {
   state = {
     DATA: [
-      {id: 1, image: '../assets/sss.jpg', name: 'El mehdi'},
-      {id: 2, image: '../assets/ccv.jpg', name: 'Arrad'},
-      {id: 3, image: '../assets/eee.jpeg', name: 'Clemont '},
-      {id: 4, image: '../assets/sss.jpg', name: 'Pierre '},
-      {id: 5, image: '../assets/eee.jpeg', name: 'Ribourt '},
+      {id: 1, image: require('../assets/eee.jpeg'), name: 'El mehdi'},
+      {id: 2, image: require('../assets/sss.jpg'), name: 'Arrad'},
+      {id: 3, image: require('../assets/ccv.jpg'), name: 'Clemont '},
+      {id: 4, image: require('../assets/sss.jpg'), name: 'Pierre '},
+      {id: 5, image: require('../assets/eee.jpeg'), name: 'Ribourt '},
     ],
   };
+  renderItem = (item) => (
+    <View style={styles.flatlist}>
+      <View style={styles.leftFlatList}>
+        <View style={styles.imageContainer2}>
+          <Image source={item.image} style={styles.image} />
+        </View>
+      </View>
+      <View style={styles.middleflatlist}>
+        <Text style={styles.ActiveText3}>{item.name}</Text>
+      </View>
+    </View>
+  );
   renderItem = (item) => (
     <View style={styles.flatlist}>
       <View style={styles.leftFlatList}>
